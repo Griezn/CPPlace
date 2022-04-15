@@ -1,8 +1,8 @@
 #pragma once
 #include <SDL.h>
-#include <string>
 #include <vector>
 #include "square.h"
+#include <SFML/Graphics.hpp>
 
 class canvas
 {
@@ -11,7 +11,7 @@ public:
 	canvas(float offset_x, float offset_y);
 	~canvas();
 
-	void render(SDL_Renderer* renderer) const;
+	void render(sf::RenderWindow* window) const;
 
 	float width;
 	float height;

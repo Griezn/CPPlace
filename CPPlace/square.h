@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <SFML/Graphics.hpp>
 
 enum class colors {
 	white,
@@ -25,7 +26,7 @@ public:
 	square();
 	square(const colors color, const float x, const float y);
 
-	void render_square(SDL_Renderer* renderer) const;
+	void render_square(sf::RenderWindow* window);
 	void update(const colors color);
 
 private:
@@ -35,7 +36,7 @@ private:
 	float width_;
 	float height_;
 
-	SDL_FRect rect_;
+	sf::RectangleShape rect_;
 
 };
 

@@ -25,11 +25,10 @@ canvas::~canvas(){
 	this->delete_squares();
 }
 
-void canvas::render(SDL_Renderer* renderer) const
+void canvas::render(sf::RenderWindow* window) const
 {
-	std::cout << this->x_ << " " << this->y_ << '\n';
 	for (auto square : this->squares_) {
-		square->render_square(renderer);
+		square->render_square(window);
 	}
 }
 
