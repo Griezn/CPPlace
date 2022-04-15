@@ -3,19 +3,22 @@
 #include <iostream>
 
 game::game() :
-//squares_(0, 0),
-window_(nullptr),
-renderer_(nullptr),
-texture_(nullptr),
-rect_(nullptr),
-screen_width_(1000),
-screen_height_(800),
-current_gamestate_(game_state::run_game){
-	this->init_rect();
-}
+	//squares_(0, 0),
+	window_(nullptr),
+	renderer_(nullptr),
+	texture_(nullptr),
+	screen_width_(1000),
+	screen_height_(800),
+	current_gamestate_(game_state::run_game),
+	offset_x_(200),
+	offset_y_(100),
+	scale_x_(1),
+	scale_y_(1),
+	canvas_(new canvas(offset_x_, offset_y_))
+{ }
 
 game::~game(){
-	delete this->rect_;
+	delete this->canvas_;
 }
 
 void game::run(){
@@ -36,6 +39,7 @@ void game::run(){
 void game::loop(){
 	while (current_gamestate_ == game_state::run_game) {
 		this->event_handler();
+		this->keyboard_input();
 		this->draw();
 	}
 }
@@ -102,14 +106,17 @@ void game::close(){
 	SDL_Quit();
 }
 
-void game::draw(){
+void game::draw() const{
 	//clean screen, must change to white
-	SDL_SetRenderDrawColor(renderer_, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_SetRenderDrawColor(renderer_, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(renderer_);
+	SDL_RenderSetScale(this->renderer_, scale_x_, scale_y_);
 
 	//render to screen
 	//SDL_RenderCopy(renderer_, texture_, nullptr, nullptr);
-	rect_->render_square(renderer_);
+	canvas_->render(renderer_);
+
+	SDL_RenderSetScale(this->renderer_, 1, 1);
 
 	//update screen
 	SDL_RenderPresent(renderer_);
@@ -122,27 +129,57 @@ void game::event_handler(){
 		if (e.type == SDL_QUIT) {
 			current_gamestate_ = game_state::quit;
 		}
-		else if (e.type == SDL_KEYDOWN) {
-			switch (e.key.keysym.sym) {
-			case SDLK_UP:
-				std::cout << "up" << '\n';
-			case SDLK_DOWN:
-				std::cout << "down" << '\n';
-			case SDLK_LEFT:
-				std::cout << "left" << '\n';
-			case SDLK_RIGHT:
-				std::cout << "right" << '\n';
+		//TODO: add mouse and kb support
+		if (e.type == SDL_MOUSEWHEEL) {
+			//scroll up
+			if (e.wheel.y > 0) {
+				zoom(true);
+			}
+			//scroll down
+			else if (e.wheel.y < 0) {
+				zoom(false);
 			}
 		}
-		//TODO: add mouse support
+		if (e.type == SDL_MOUSEBUTTONDOWN) {
+			
+		}
 	}
 }
 
-void game::init_rect(){
-	this->rect_ = new square;
+void game::keyboard_input() const{
+	const Uint8* current_keystate = SDL_GetKeyboardState(nullptr);
+	if (current_keystate[SDL_SCANCODE_UP]) {
+		//this->canvas_->move(0, 1);
+	}
+	if (current_keystate[SDL_SCANCODE_DOWN]) {
+		//this->canvas_->move(0, -1);
+	}
+	if (current_keystate[SDL_SCANCODE_LEFT]) {
+		//this->canvas_->move(1, 0);
+	}
+	if (current_keystate[SDL_SCANCODE_RIGHT]) {
+		//this->canvas_->move(-1, 0);
+	}
 }
 
-SDL_Texture* game::load_texture(std::string path){
+void game::zoom(bool in){
+	if (in) {
+		if (scale_x_ < 2) {
+			scale_x_ *= 1.05f;
+			scale_y_ *= 1.05f;
+			screen_width_ *= 1.05f;
+			screen_height_ *= 1.05;
+		}
+	}
+	else {
+		if (scale_x_ > 1) {
+			scale_x_ *= 0.95f;
+			scale_y_ *= 0.95f;
+		}
+	}
+}
+
+SDL_Texture* game::load_texture(std::string path) const{
 	//the texture to return
 	SDL_Texture* new_texture = nullptr;
 

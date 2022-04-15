@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <SDL.h>
 
 enum class colors {
@@ -21,23 +20,22 @@ enum class colors {
 	purple
 };
 
-class square
-{
+class square{
 public:
 	square();
-	square(colors color, int x, int y);
+	square(const colors color, const float x, const float y);
 
-	void render_square(SDL_Renderer* renderer);
-	void update(colors color);
+	void render_square(SDL_Renderer* renderer) const;
+	void update(const colors color);
 
 private:
 	colors color_;
-	const int x_;
-	const int y_;
-	const int width_;
-	const int height_;
+	float x_;
+	float y_;
+	float width_;
+	float height_;
 
-	SDL_Rect rect_;
+	SDL_FRect rect_;
 
 };
 

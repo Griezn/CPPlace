@@ -1,24 +1,25 @@
 #include "square.h"
 
+#include <iostream>
+#include <utility>
+
 square::square():
 color_(colors::black),
-x_(0),
-y_(0),
-width_(10),
-height_(10){
-	this->rect_ = SDL_Rect{ x_, y_, width_, height_ };
-}
+x_(0.0f),
+y_(0.0f),
+width_(10.0f),
+height_(10.0f),
+rect_(SDL_FRect{x_, y_, width_, height_}){}
 
-square::square(const colors color, const int x, const int y):
+square::square(const colors color, const float x, const float y):
 color_(color),
 x_(x),
 y_(y),
 width_(10),
-height_(10){
-	this->rect_ = SDL_Rect{ x_, y_, width_, height_ };
-}
+height_(10),
+rect_(SDL_FRect{ x_, y_, width_, height_ }) {}
 
-void square::render_square(SDL_Renderer* renderer){
+void square::render_square(SDL_Renderer* renderer) const{
 	switch (color_) {
 	case colors::white: SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF); break;
 	case colors::light_gray: SDL_SetRenderDrawColor(renderer, 0xE4, 0xE4, 0xE4, 0xFF); break;
@@ -37,9 +38,9 @@ void square::render_square(SDL_Renderer* renderer){
 	case colors::magenta: SDL_SetRenderDrawColor(renderer, 0xCF, 0x6E, 0xE4, 0xFF); break;
 	case colors::purple: SDL_SetRenderDrawColor(renderer, 0x82, 0x00, 0x80, 0xFF); break;
 	}
-	SDL_RenderFillRect(renderer, &rect_);
+	SDL_RenderFillRectF(renderer, &rect_);
 }
 
-void square::update(colors color){
+void square::update(const colors color){
 	this->color_ = color;
 }

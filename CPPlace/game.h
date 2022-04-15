@@ -1,7 +1,10 @@
 #pragma once
-#include "square.h"
 #include <SDL.h>
 #include <SDL_image.h>
+#include <vector>
+#include <string>
+#include "canvas.h"
+#include "square.h"
 
 enum class game_state {
 	run_game,
@@ -24,11 +27,18 @@ private:
 	SDL_Window* window_;
 	SDL_Renderer* renderer_;
 	SDL_Texture* texture_;
-	square* rect_;
+	//std::vector<square*> rects_;
 
 	int screen_width_;
 	int screen_height_;
 	game_state current_gamestate_;
+
+	float offset_x_;
+	float offset_y_;
+	float scale_x_;
+	float scale_y_;
+
+	canvas* canvas_;
 
 	/// @brief The main loop keeps running until the cross is pressed
 	void loop();
@@ -41,14 +51,14 @@ private:
 	/// @brief Frees up memory and closes the SDL functions
 	void close();
 	/// @brief Render the objects to the screen
-	void draw();
+	void draw() const;
 	/// @brief Looks for keyboard and mouse input
 	void event_handler();
-	/// @brief Creates a new rectangle
-	void init_rect();
+	void keyboard_input() const;
+	void zoom(bool in);
 	/// @brief Loads a PNG texture
 	/// @param path Path to the texture
 	/// @return A pointer to the PNG texture
-	SDL_Texture* load_texture(std::string path);
+	SDL_Texture* load_texture(std::string path) const;
 };
 
