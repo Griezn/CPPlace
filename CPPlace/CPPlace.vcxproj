@@ -162,13 +162,17 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="canvas.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="hud.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="round_rectangle.cpp" />
     <ClCompile Include="square.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h" />
     <ClInclude Include="canvas.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="hud.h" />
+    <ClInclude Include="round_rectangle.h" />
     <ClInclude Include="square.h" />
   </ItemGroup>
   <ItemGroup>
