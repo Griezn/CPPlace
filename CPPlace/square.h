@@ -11,6 +11,7 @@ public:
 	void update(const sf::Color color);
 
 	bool highlight = false;
+	bool selected = false;
 
 private:
 	sf::Color color_;

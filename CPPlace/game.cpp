@@ -101,7 +101,7 @@ void game::event_handler(){
 	}
 }
 
-void game::keyboard_input() const{
+void game::keyboard_input(){
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		this->camera_->move(0, -1.0f);
 	}
@@ -116,17 +116,24 @@ void game::keyboard_input() const{
 	}
 }
 
-void game::mouse_handler() const
+void game::mouse_handler() 
 {
 	sf::Vector2i pixelpos = sf::Mouse::getPosition(*window_);
-	sf::Vector2f worldpos = this->window_->mapPixelToCoords(pixelpos);
-
-	this->canvas_->select_square(worldpos.x, worldpos.y);
+	sf::Vector2f worldpos = this->window_->mapPixelToCoords(pixelpos, camera_->view);
 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		this->canvas_->select_square(worldpos.x, worldpos.y, true);
 		this->hud_->hud_mouse_handler(pixelpos.x, pixelpos.y, true);
+		update_square();
 	}
 	else {
+		this->canvas_->select_square(worldpos.x, worldpos.y);
 		this->hud_->hud_mouse_handler(pixelpos.x, pixelpos.y);
 	}
-};
+}
+
+void game::update_square(){
+	if (this->canvas_->selected_square != nullptr) {
+		this->canvas_->selected_square->update(this->hud_->chosen_color);
+	}
+}

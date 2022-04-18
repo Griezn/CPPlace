@@ -22,14 +22,15 @@ rect_(sf::RectangleShape(sf::Vector2f(width_, height_))){
 
 void square::render_square(sf::RenderWindow* window){
 	rect_.setFillColor(color_);
-	if (highlight == true) {
+	if (selected || highlight) {
 		rect_.setOutlineThickness(1.0f);
-		rect_.setOutlineColor(game::red);
+		rect_.setOutlineColor(game::black);
 	}
 	else {
 		rect_.setOutlineThickness(0.0f);
 		rect_.setOutlineColor(color_);
 	}
+	
 	window->draw(rect_);
 }
 

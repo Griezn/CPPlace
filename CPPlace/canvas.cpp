@@ -6,6 +6,7 @@
 #include "game.h"
 
 canvas::canvas() :
+selected_square(nullptr),
 	width(600),
 	height(600),
 	x_(0),
@@ -15,6 +16,7 @@ canvas::canvas() :
 }
 
 canvas::canvas(float offset_x, float offset_y) :
+selected_square(nullptr),
 	width(600),
 	height(600),
 	x_(offset_x),
@@ -37,11 +39,22 @@ void canvas::render(sf::RenderWindow* window) const
 	}
 }
 
-void canvas::select_square(float x, float y)
+void canvas::select_square(float x, float y, bool click)
 {
-	std::cout << x << " " << y << std::endl;
-	square* square = nullptr;
-	find_square(x - 200, y - 100, square);
+	const auto index = find_square(x - 200, y - 100);
+
+	if (index != NULL) {
+		if (click) {
+			if (selected_square != nullptr) {
+				selected_square->selected = false;
+			}
+			selected_square = this->squares_[index];
+			selected_square->selected = true;
+		}
+		else {
+			this->squares_[index]->highlight = true;
+		}
+	}
 }
 
 void canvas::init_squares()
@@ -61,16 +74,17 @@ void canvas::delete_squares() const
 	}
 }
 
-void canvas::find_square(float x_pos, float y_pos, square* rect) const{
+int canvas::find_square(float x_pos, float y_pos) const{
 	int digit = floor(y_pos / 10);
 	int tiental = floor(x_pos / 10) * 60;
 	int index = tiental + digit;
+	int return_index = NULL;
 
 	if (x_pos >= 0 && x_pos <= 600 ) {
 		if (y_pos >= 0 && y_pos <= 600) {
-			rect = squares_[index];
-			rect->highlight = true;
+			return_index = index;
 		}
 	}
-	std::cout << index << std::endl;
+
+	return return_index;
 }

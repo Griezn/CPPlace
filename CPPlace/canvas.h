@@ -11,7 +11,9 @@ public:
 	~canvas();
 
 	void render(sf::RenderWindow* window) const;
-	void select_square(float x, float y);
+	void select_square(float x, float y, bool click = false);
+
+	square* selected_square;
 
 	float width;
 	float height;
@@ -25,5 +27,5 @@ private:
 
 	void init_squares();
 	void delete_squares() const;
-	void find_square(float x_pos, float y_pos, square* rect) const;
+	int find_square(float x_pos, float y_pos) const;
 };

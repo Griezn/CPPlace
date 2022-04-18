@@ -62,6 +62,7 @@ private:
 	void close();
 	void draw() const;
 	void event_handler();
-	void keyboard_input() const;
-	void mouse_handler() const;
+	void keyboard_input();
+	void mouse_handler();
+	void update_square();
 };
