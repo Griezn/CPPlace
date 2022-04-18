@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL.h>
 #include <vector>
 #include "square.h"
 #include <SFML/Graphics.hpp>
@@ -12,6 +11,7 @@ public:
 	~canvas();
 
 	void render(sf::RenderWindow* window) const;
+	void select_square(float x, float y);
 
 	float width;
 	float height;
@@ -20,8 +20,6 @@ public:
 private:
 	float x_;
 	float y_;
-	int screen_width_{ 1000 };
-	int screen_height_{ 800 };
 
 	std::vector<square*> squares_;
 

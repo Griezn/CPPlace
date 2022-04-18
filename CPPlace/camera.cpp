@@ -1,13 +1,31 @@
 #include "camera.h"
-camera::camera():
-camera_(SDL_Rect{0, 0, 1000, 800}),
-width_(1000),
-height_(800)
-{}
 
-void camera::move(int x, int y){}
+#include <iostream>
 
-void camera::set_position(int x, int y){
-	this->camera_.x = x;
-	this->camera_.y = y;
+camera::camera()
+{
+	this->view = sf::View(view_rect_);
 }
+
+void camera::move(float x, float y)
+{
+	this->view.move(x, y);
+}
+
+void camera::zoom(bool in)
+{
+	if (in) {
+		if (scale_factor_ > 0.5f) {
+			scale_factor_ *= 0.95f;
+			this->view.zoom(0.95f);
+		}
+	}
+	else {
+		if (scale_factor_ <= 1.0f) {
+			scale_factor_ *= 1.05f;
+			this->view.zoom(1.05f);
+		}
+	}
+}
+
+

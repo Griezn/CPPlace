@@ -2,35 +2,18 @@
 #include <SDL.h>
 #include <SFML/Graphics.hpp>
 
-enum class colors {
-	white,
-	light_gray,
-	gray,
-	black,
-	pink,
-	red,
-	orange,
-	brown,
-	yellow,
-	lime,
-	green,
-	appel_blauw,
-	aqua,
-	blue,
-	magenta,
-	purple
-};
-
 class square{
 public:
 	square();
-	square(const colors color, const float x, const float y);
+	square(const sf::Color color, const float x, const float y);
 
 	void render_square(sf::RenderWindow* window);
-	void update(const colors color);
+	void update(const sf::Color color);
+
+	bool highlight = false;
 
 private:
-	colors color_;
+	sf::Color color_;
 	float x_;
 	float y_;
 	float width_;

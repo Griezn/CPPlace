@@ -1,17 +1,21 @@
 #pragma once
-#include <SDL.h>
+#include <SFML/Graphics.hpp>
 
 class camera
 {
+public:
 	camera();
 
-	void move(int x, int y);
-	void set_position(int x, int y);
+	void move(float x, float y);
+	void zoom(bool in);
+
+	sf::View view;
 
 
 private:
-	SDL_Rect camera_;
-	const int width_;
-	const int height_;
+	sf::FloatRect view_rect_ = sf::FloatRect(0, 0, 1000, 800);
+
+	float scale_factor_ = 1;
+
 };
 
