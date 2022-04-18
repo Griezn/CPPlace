@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "game.h"
+
 void hud::render_hud(sf::RenderWindow* window){
 	if (hud_visible_) {
 		//the bar
@@ -78,20 +80,20 @@ void hud::draw_clors(){
 
 	color_squars_[0].setFillColor(game::white); 
 	color_squars_[1].setFillColor(game::light_gray); 
-	color_squars_[2].setFillColor(sf::Color(0x88, 0x88, 0x88, 0xFF)); 
-	color_squars_[3].setFillColor(sf::Color(0x22, 0x22, 0x22, 0xFF)); 
-	color_squars_[4].setFillColor(sf::Color(0xFF, 0xA7, 0xD1, 0xFF)); 
-	color_squars_[5].setFillColor(sf::Color(0xE5, 0x00, 0x00, 0xFF)); 
-	color_squars_[6].setFillColor(sf::Color(0xE5, 0x95, 0x00, 0xFF)); 
-	color_squars_[7].setFillColor(sf::Color(0xA0, 0x6A, 0x42, 0xFF)); 
-	color_squars_[8].setFillColor(sf::Color(0xE5, 0xD9, 0x00, 0xFF)); 
-	color_squars_[9].setFillColor(sf::Color(0x94, 0xE0, 0x44, 0xFF)); 
-	color_squars_[10].setFillColor(sf::Color(0x02, 0xBE, 0x01, 0xFF)); 
-	color_squars_[11].setFillColor(sf::Color(0x00, 0xD3, 0xDD, 0xFF)); 
-	color_squars_[12].setFillColor(sf::Color(0x00, 0x83, 0xC7, 0xFF)); 
-	color_squars_[13].setFillColor(sf::Color(0x00, 0x00, 0xEA, 0xFF)); 
-	color_squars_[14].setFillColor(sf::Color(0xCF, 0x6E, 0xE4, 0xFF)); 
-	color_squars_[15].setFillColor(sf::Color(0x82, 0x00, 0x80, 0xFF));
+	color_squars_[2].setFillColor(game::gray); 
+	color_squars_[3].setFillColor(game::black); 
+	color_squars_[4].setFillColor(game::pink); 
+	color_squars_[5].setFillColor(game::red); 
+	color_squars_[6].setFillColor(game::orange); 
+	color_squars_[7].setFillColor(game::brown); 
+	color_squars_[8].setFillColor(game::yellow); 
+	color_squars_[9].setFillColor(game::lime); 
+	color_squars_[10].setFillColor(game::green);
+	color_squars_[11].setFillColor(game::appel_blauw); 
+	color_squars_[12].setFillColor(game::aqua); 
+	color_squars_[13].setFillColor(game::blue); 
+	color_squars_[14].setFillColor(game::magenta); 
+	color_squars_[15].setFillColor(game::purple);
 
 	for (int i = 0; i < 16; ++i) {
 		color_squars_[i].setPosition((i + 1) * offset + i * width, 722.5);
